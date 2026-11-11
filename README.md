@@ -1,104 +1,80 @@
-# Kelompok_4```html
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pesan Rahasia</title>
 
-<style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: Arial, sans-serif;
-    }
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.dml.color import RGBColor
+from pptx.enum.text import PP_ALIGN
 
-    body{
-        background: linear-gradient(135deg,#1e1e2f,#3b3b98);
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        color:white;
-    }
+# Membuat presentasi baru
+ppt = Presentation()
 
-    .container{
-        width:90%;
-        max-width:500px;
-        background: rgba(255,255,255,0.1);
-        padding:30px;
-        border-radius:20px;
-        backdrop-filter: blur(10px);
-        box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    }
+# Data materi presentasi
+materi = [
+    ("ALGORITMA DIVIDE AND CONQUER",
+     "Pencarian Nama di Kamus Menggunakan Python"),
 
-    h1{
-        text-align:center;
-        margin-bottom:20px;
-    }
+    ("PENGERTIAN",
+     "Divide and Conquer adalah algoritma yang "
+     "membagi masalah besar menjadi bagian kecil "
+     "agar lebih mudah diselesaikan."),
 
-    label{
-        display:block;
-        margin-top:15px;
-        margin-bottom:8px;
-    }
+    ("CARA KERJA",
+     "1. Divide: Membagi data menjadi dua bagian.\n"
+     "2. Compare: Membandingkan data.\n"
+     "3. Conquer: Memilih bagian yang sesuai.\n"
+     "4. Repeat: Mengulangi sampai ditemukan."),
 
-    textarea,
-    input{
-        width:100%;
-        padding:12px;
-        border:none;
-        border-radius:10px;
-        outline:none;
-        font-size:16px;
-    }
+    ("CONTOH PENERAPAN",
+     "Mencari nama NISA dalam daftar nama "
+     "yang sudah diurutkan berdasarkan abjad "
+     "menggunakan metode Binary Search."),
 
-    textarea{
-        resize:none;
-        height:120px;
-    }
+    ("KESIMPULAN",
+     "Algoritma Divide and Conquer membantu "
+     "mempercepat proses pencarian data "
+     "dengan membagi masalah menjadi bagian "
+     "yang lebih kecil.")
+]
 
-    button{
-        width:100%;
-        padding:12px;
-        margin-top:20px;
-        border:none;
-        border-radius:10px;
-        background:#ffcc00;
-        color:black;
-        font-weight:bold;
-        cursor:pointer;
-        transition:0.3s;
-    }
+# Membuat setiap slide
+for judul, isi in materi:
 
-    button:hover{
-        background:#ffd633;
-        transform:scale(1.03);
-    }
+    slide = ppt.slides.add_slide(
+        ppt.slide_layouts[6]
+    )
 
-    .hasil{
-        margin-top:20px;
-        background:rgba(0,0,0,0.2);
-        padding:15px;
-        border-radius:10px;
-        min-height:80px;
-        word-wrap:break-word;
-    }
+    # Membuat kotak judul
+    title_box = slide.shapes.add_textbox(
+        Inches(0.7), Inches(0.5),
+        Inches(8), Inches(1)
+    )
 
-    .info{
-        margin-top:10px;
-        font-size:14px;
-        opacity:0.8;
-        text-align:center;
-    }
-</style>
-</head>
+    title = title_box.text_frame
+    title.text = judul
 
-<body>
+    p = title.paragraphs[0]
+    p.font.size = Pt(28)
+    p.font.bold = True
+    p.font.color.rgb = RGBColor(0, 70, 140)
 
-<div class="container">
-    <h1>🔒 Pesan Rahasia</h1>
+    # Membuat kotak isi
+    content_box = slide.shapes.add_textbox(
+        Inches(0.8), Inches(2),
+        Inches(8), Inches(4)
+    )
+
+    content = content_box.text_frame
+    content.word_wrap = True
+    content.text = isi
+
+    p = content.paragraphs[0]
+    p.font.size = Pt(20)
+    p.font.color.rgb = RGBColor(40, 40, 40)
+
+# Menyimpan file PPT
+ppt.save("Presentasi_Divide_and_Conquer.pptx")
+
+print("PPT berhasil dibuat!")
+
 
     <label>Tulis Pesan:</label>
     <textarea id="pesan" placeholder="Masukkan pesan rahasia..."></textarea>
